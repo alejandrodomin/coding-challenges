@@ -1,0 +1,14 @@
+number like 123
+split into individual 1 2 3
+
+add 1 2 3
+result 6
+
+check if more than one digit 
+
+if more than one
+ 	repeat from beginning
+
+else
+	done
+	print result
