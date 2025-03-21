@@ -7,7 +7,19 @@
 # SinglyLinkedListNode:
 #     int data
 #     SinglyLinkedListNode next
+def hackerrank_has_cycle(head):
+    ''' This is the solution hackerrank wanted '''
+    visited=[]
+    ptr=head
 
+    while ptr.next is not None:
+        if ptr in visited:
+            return 1
+
+        visited.append(ptr)
+        ptr=ptr.next
+
+    return 0
 
 def has_cycle(head_ptr):
     ''' I already knew the soltuion, since I am aware of the turtle and hare algorithm.
