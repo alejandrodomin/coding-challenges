@@ -1,22 +1,18 @@
 import pdb
 
 def max_profit(prices):
-    max_profit=0
-    buy_ptr, sell_ptr=0,0
-    
-    while sell_ptr < len(prices):
-        delta=prices[sell_ptr] - prices[buy_ptr]
+    min_price = float('inf')
+    max_profit = 0
 
-        if delta > max_profit:
-            max_profit = delta
-        elif delta < 0:
-            buy_ptr+=1
-        else:
-            sell_ptr+=1
+    for price in prices:
+        if price < min_price:
+            min_price = price
+        elif price - min_price > max_profit:
+            max_profit = price - min_price
 
     return max_profit
 
 if __name__=='__main__':
-    prices=[7,1,5,3,6,4]
+    prices=[7,2,7,13,1,5,3,6,4]
     profit = max_profit(prices)
     print(profit)
