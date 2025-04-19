@@ -15,8 +15,8 @@ def gen_tree(values):
     if not values or values[0] is None:
         return None
 
-    root = TreeNode(values[0])
-    queue = [root]
+    node = TreeNode(values[0])
+    queue = [node]
     i = 1
 
     while queue and i < len(values):
@@ -34,28 +34,34 @@ def gen_tree(values):
             queue.append(current.right)
         i += 1
 
-    return root  
+    return node  
+
+def depth(node):
+    if node is None:
+        return 0
+    else:
+        return max(depth(node.left), depth(node.right)) + 1
 
 
-def is_balanced(root):
-    lowestLevel=float('inf')
+def is_balanced(node):
+    '''
+    To check if a Binary tree is balanced we need to check three conditions :
 
-    pq=[]
-    heapq.heappush(pq, (0, root))
+    The absolute difference between heights of left and right subtrees at any node should be less than 1.
+    For each node, its left subtree should be a balanced binary tree.
+    For each node, its right subtree should be a balanced binary tree.
+    '''
+    if node is None:
+        return True
+    
+    ld, rd = depth(node.left), depth(node.right)
 
-    while pq:
-        level, node = heapq.heappop(pq)
-
-        if (node is None or (node.left is None or node.right is None)) and lowestLevel == float('inf'):
-            lowestLevel=level
-        elif node is not None:
-            heapq.heappush(pq, (level + 1, node.left))
-            heapq.heappush(pq, (level + 1, node.right))
-
-        if level - lowestLevel > 1:
-            return False
-
-    return True
+    if abs(ld - rd) > 1:
+        print(f"Node {node.val}, Ld {ld}, Rd {rd}")
+        return False
+    else:
+        return is_balanced(node.left) and is_balanced(node.right)
+       
 
 if __name__=='__main__':
     trees = [
@@ -66,4 +72,4 @@ if __name__=='__main__':
     ]
 
     for expected, tree in trees:
-        print(f"Expected: {expected} Actual: {is_balanced(tree)}")
+        print(f"Expected: {expected}  \tActual: {is_balanced(tree) > 1}")
