@@ -1,3 +1,18 @@
+def cache(func):
+    pre_calc={}
+
+    def cache_value(*args, **kwargs):
+        value = args[0]
+
+        if value not in pre_calc:
+            pre_calc[value] = func(*args, **kwargs)
+
+        return pre_calc[value]
+
+    return cache_value
+
+
+@cache
 def __is_bad_version(n):
     if n > 39:
         return True
