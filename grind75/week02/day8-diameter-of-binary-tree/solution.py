@@ -2,9 +2,6 @@
 # give the solution.
 # So depth of root.left + depth of root.right
 
-import heapq
-
-
 class TreeNode(object):
     def __init__(self, val=0, left=None, right=None):
         self.val = val
@@ -67,17 +64,15 @@ def depth(node):
 
 if __name__ == '__main__':
     root = gen_tree([1, 2, 3, 4, 5])
-    pq = []
-    heapq.heappush(pq, root)
+    pq = [root]
 
     diameter = 0
     while pq:
-        node = heapq.heappop(pq)
-
+        node = pq.pop()
         if node.left is not None:
-            heapq.heappush(pq, node.left)
+            pq.append(node.left)
         if node.right is not None:
-            heapq.heappush(pq, node.right)
+            pq.append(node.right)
 
         local_diam = depth(node.left) + depth(node.right) + 2
         if local_diam > diameter:
