@@ -64,15 +64,15 @@ def depth(node):
 
 if __name__ == '__main__':
     root = gen_tree([1, 2, 3, 4, 5])
-    pq = [root]
+    queue = [root]
 
     diameter = 0
-    while pq:
-        node = pq.pop()
+    while queue:
+        node = queue.pop()
         if node.left is not None:
-            pq.append(node.left)
+            queue.append(node.left)
         if node.right is not None:
-            pq.append(node.right)
+            queue.append(node.right)
 
         local_diam = depth(node.left) + depth(node.right) + 2
         if local_diam > diameter:
