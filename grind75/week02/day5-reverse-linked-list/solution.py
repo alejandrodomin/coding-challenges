@@ -38,5 +38,16 @@ if __name__ == '__main__':
     # i don't have any fancy solution ideas just a iterate over all and then do
     # it backwards to reverse
     # +1 yeah that seems to be the correct way of doing things
+    # +2 it isn't the memory optimized way, I've reviewed the proper answer
+    #    and I think I'm ready to take a crack at it
 
-    print(f"Reversed linked list {__ll_to_arr(root)[::-1]}")
+    curr, previous = root, None
+
+    while curr:
+        tmp = curr.next  # save value we're overriding
+        curr.next = previous  # override value with new directions
+
+        previous = curr  # move the previous over by one
+        curr = tmp  # move the curr over by one
+
+    print(f"Reversed linked list {__ll_to_arr(previous)}")
