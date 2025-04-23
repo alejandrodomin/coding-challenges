@@ -1,28 +1,29 @@
-import heapq
+def cache(func):
+    pre_calc = {}
+
+    def cache_value(*args, **kwargs):
+        value = args[0]
+
+        if value not in pre_calc:
+            pre_calc[value] = func(*args, **kwargs)
+
+        return pre_calc[value]
+
+    return cache_value
 
 
+@cache
 def climb_stairs(level):
-    combos = 0
-    pq = []
-    heapq.heappush(pq, 0)
+    if level <= 0:
+        return 0
+    elif level == 1 or level == 2:
+        return level
 
-    while pq:
-        clevel = heapq.heappop(pq)
-
-        if clevel == level:
-            combos += 1
-            continue
-
-        if clevel < level:
-            for _ in range(2):
-                clevel += 1
-                heapq.heappush(pq, clevel)
-
-    return combos
+    return climb_stairs(level - 2) + climb_stairs(level - 1)
 
 
 if __name__ == '__main__':
     # two possible ways of stepping up to the top
     # + 1 or + 2
-    level = 35
+    level = 300
     print(climb_stairs(level))
