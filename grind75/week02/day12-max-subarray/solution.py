@@ -25,5 +25,15 @@ def max_sub_arr(nums: list) -> int:
     return best_sum
 
 
+def kadane(nums: list) -> int:
+    max_sum = curren_sum = nums[0]
+
+    for num in nums[1:]:
+        curren_sum = max(num, curren_sum + num)
+        max_sum = max(max_sum, curren_sum)
+
+    return max_sum
+
+
 if __name__ == '__main__':
-    print(max_sub_arr([5, 4, -1, 7, 8]))
+    print(kadane([5, 4, -1, 7, 8]))
