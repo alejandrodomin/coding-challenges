@@ -4,19 +4,17 @@
 # Prompt is asking for O(1) space complexity so lets see if we can do that.
 
 if __name__ == '__main__':
-    nums = [3, 3, 4]
+    nums = [2, 2, 1, 1, 1, 2, 2]
 
-    n_map = {}
+    vote, count = 0, 0
+
     for num in nums:
-        if num not in n_map:
-            n_map[num] = 0
+        if num != vote and count == 0:
+            vote = num
 
-        n_map[num] += 1
+        if vote == num:
+            count += 1
+        else:
+            count -= 1
 
-    m_value,  m_count = 0, 0
-    for key in n_map:
-        if n_map[key] > m_count:
-            m_value = key
-            m_count = n_map[key]
-
-    print(m_value)
+    print(vote)
