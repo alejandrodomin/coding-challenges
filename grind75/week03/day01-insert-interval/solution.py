@@ -1,31 +1,27 @@
-# intuition tells me to use a bit array but i dont think that will be necessary
+# intuition tells me to use a bit arraend but i dont think that will be necessary
+
+is_overlapping = lambda coord1, coord2 : coord1[0] <= coord2[0] and coord1[1] <= coord2[1]
+is_left = lambda coord1, coord2: coord1[1] < coord2[0]
+is_right = lambda coord1, coord2: coord1[0] > coord2[1]
+is_contained = lambda coord1, coord2 : coord2[0] <= coord1[0] and coord1[1] <= coord2[1]
+merge = lambda coord1, coord2 : [min(coord1[0], coord2[0]), max(coord1[1], coord2[1])]
+  
 
 def insert(intervals, new_interval):
-    start, end = new_interval
+    merged_intervals = []
 
-    delete = False
-    pruned_intervals, tmp = [], []
+    for pair in intervals:
+        if is_left(pair, new_interval) or is_right(pair, new_interval):
+            merged_intervals.append(pair)
+        elif we have started:
 
-    for inter in intervals:
-        if start >= inter[0] and start <= inter[1]:
-            tmp.append(inter[0])
-            delete = True
-            continue
+    
+    return merged_intervals
+        
 
-        if delete and end >= inter[0] and end <= inter[1]:
-            tmp.append(inter[1])
-            pruned_intervals.append(tmp)
-            delete = False
-            continue
-
-        if not delete:
-            pruned_intervals.append(inter)
-
-    return pruned_intervals
-
-
+    
 if __name__ == '__main__':
-    intervals = [[1, 2], [3, 5], [6, 7], [8, 10], [12, 16]]
+    intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]]
     new_interval = [4, 8]
 
     print(insert(intervals, new_interval))
