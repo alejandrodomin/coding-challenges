@@ -1,27 +1,37 @@
 # intuition tells me to use a bit arraend but i dont think that will be necessary
 
-is_overlapping = lambda coord1, coord2 : coord1[0] <= coord2[0] and coord1[1] <= coord2[1]
-is_left = lambda coord1, coord2: coord1[1] < coord2[0]
-is_right = lambda coord1, coord2: coord1[0] > coord2[1]
-is_contained = lambda coord1, coord2 : coord2[0] <= coord1[0] and coord1[1] <= coord2[1]
-merge = lambda coord1, coord2 : [min(coord1[0], coord2[0]), max(coord1[1], coord2[1])]
-  
-
 def insert(intervals, new_interval):
-    merged_intervals = []
+    if not intervals:
+        return [new_interval]
 
-    for pair in intervals:
-        if is_left(pair, new_interval) or is_right(pair, new_interval):
-            merged_intervals.append(pair)
-        elif we have started:
+    inserted = False
+    for index, inter in enumerate(intervals):
+        if new_interval[0] <= inter[0]:
+            intervals.insert(index, new_interval)
+            inserted = True
+            break
+    if not inserted:
+        intervals.append(new_interval)
 
+    merged_intervals = [intervals.pop(0)]
+
+    while intervals:
+        last = merged_intervals.pop()
+        inter = intervals.pop(0)
+
+        if inter[0] <= last[1]:
+            merged = [min(last[0], inter[0]), max(last[1], inter[1])]
+            merged_intervals.append(merged)
+        else:
+            merged_intervals.append(last)
+            merged_intervals.append(inter)
     
     return merged_intervals
         
 
     
 if __name__ == '__main__':
-    intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]]
-    new_interval = [4, 8]
+    intervals = [[2,6],[7,9]]
+    new_interval = [15,18]
 
     print(insert(intervals, new_interval))
