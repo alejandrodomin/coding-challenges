@@ -1,51 +1,36 @@
-distance_map = {}
-visited = []
+def valid_moves(row, item, matrix):
+    moves = [[row - 1, item],
+             [row, item - 1],
+             [row, item + 1],
+             [row + 1, item]]
 
-def valid_moves(coord: tuple[int, int], matrix: list[list[int]]):
-    global visited
-
-    row, item = coord
-    moves = [(row - 1 , item),
-             (row, item - 1),
-             (row, item + 1),
-             (row + 1, item)]
-
-    max_r, max_i = len(matrix), len(matrix[0])
     v_moves = []
-    for x, y in moves:
-        if 0 <= x < max_r and 0 <= y < max_i and (x, y) not in visited:
-            v_moves.append((x, y))
+    for index, move in enumerate(moves):
+        i, j = move
+        if 0 <= i < len(matrix) and 0 <= j < len(matrix[0]):
+            v_moves.append(moves[index])
 
-    visited.extend(v_moves)
     return v_moves
 
+def nearest_0(i, j, matrix):
+    if matrix[i][j] == 0:
+        return 0
 
-def nearest_0(coord, matrix):
-    global distance_map
+    moves = []
+    for x, y in valid_moves(i, j, matrix):
+        if matrix[i][j] == 0:
+            # moves.a
 
-    if coord not in distance_map:
-        if matrix[coord[0]][coord[1]] == 0:
-            distance_map[coord] = 0
-        else:
-            distances = []
-            for move in valid_moves(coord, matrix):
-                distances.append(nearest_0(move, matrix))
-
-            distance = min(distances) + 1
-            distance_map[coord] = distance
-
-    return distance_map[coord]
-
+    return min(moves)
 
 def distance_matrix(matrix):
-    import copy
-    updated_matrix = copy.copy(matrix)
+    dis_matrix = [[None] * len(matrix[0])] * len(matrix)
 
-    for i in range(len(matrix)):
-        for j in range(len(matrix[i])):
-            updated_matrix[i][j] = nearest_0((i, j), matrix)
+    for i, row in enumerate(matrix):
+        for j, item in enumerate(row):
+            dis_matrix[i][j] = nearest_0(i, j, matrix)
 
-    return updated_matrix
+    return dis_matrix
 
 
 if __name__ == '__main__':
