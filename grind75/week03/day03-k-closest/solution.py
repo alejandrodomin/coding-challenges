@@ -1,7 +1,17 @@
 # very easy problem, such a juxtaposition to the o1-matrix kicking my ass
+# most pythonista solution submitted by someone else
+# class Solution(object):
+#     def kClosest(self, points, k):
+#         """
+#         :type points: List[List[int]]
+#         :type k: int
+#         :rtype: List[List[int]]
+#         """
+#         points.sort(key = lambda x : x[0] ** 2 + x[1] ** 2)
+#
+#         return points[:k]
 
-import math
-
+# my simplification on their solution
 
 class Solution(object):
     def kClosest(self, points, k):
@@ -10,11 +20,4 @@ class Solution(object):
         :type k: int
         :rtype: List[List[int]]
         """
-        mapping = []
-        for x, y in points:
-            dstnc = math.sqrt(x ** 2 + y ** 2)
-            mapping.append((dstnc, (x, y)))
-
-        mapping = sorted(mapping, key=lambda x: (x[0]))
-
-        return [coord for _, coord in mapping[:k]]
+        return sorted(points, key = lambda x : x[0] ** 2 + x[1] ** 2)[:k]
