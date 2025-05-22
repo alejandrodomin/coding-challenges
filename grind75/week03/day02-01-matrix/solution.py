@@ -20,6 +20,7 @@ def nearest_0(i, j, matrix):
     for x, y in valid_moves(i, j, matrix):
         if matrix[i][j] == 0:
             # moves.a
+            pass
 
     return min(moves)
 
