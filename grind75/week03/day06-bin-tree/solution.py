@@ -40,23 +40,30 @@ def build_tree_from_list(values):
     return root
 
 def bts(root):
-    bts_array: list[TreeNode] = [root]
+    bts_array: list[list[TreeNode]] = [[root]]
+    val_array: list[list[int]] = [[root.val]]
+
     index = 0
+    while index < len(bts_array):
+        level = bts_array[index]
+        next_level = []
+        next_val = []
 
-    while bts_array[index].left is not None and bts_array[index].right is not None:
-        if bts_array[index]:
-            left, right = bts_array[index].left, bts_array[index].right
+        for node in level:
+            if node.left is not None:
+                next_level.append(node.left)
+                next_val.append(node.left.val)
+            if node.right is not None:
+                next_level.append(node.right)
+                next_val.append(node.right.val)
 
-            if left:
-                bts_array.append(left)
-            if right:
-                bts_array.append(right)
-
-
+        if len(next_level) > 0:
+            bts_array.append(next_level)
+            val_array.append(next_val)
 
         index += 1
 
-    return bts_array
+    return val_array
 
 
 # Example usage:
